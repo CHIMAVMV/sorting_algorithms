@@ -1,8 +1,3 @@
-/*
- * File: 1000-sort_deck.c
- * Auth: chima
- */
-
 #include "deck.h"
 
 int _strcmp(const char *s1, const char *s2);
@@ -120,6 +115,13 @@ void insertion_sort_deck_value(deck_node_t **deck)
 			if (iter->next != NULL)
 				iter->next->prev = insert;
 			iter->prev = insert->prev;
+			iter->next = insert;
+			if (insert->prev != NULL)
+				insert->prev->next = iter;
+			else
+				*deck = iter;
+			insert->prev = iter;
+			insert = iter->prev;
 		}
 	}
 }
@@ -137,4 +139,3 @@ void sort_deck(deck_node_t **deck)
 	insertion_sort_deck_kind(deck);
 	insertion_sort_deck_value(deck);
 }
-
